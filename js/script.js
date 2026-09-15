@@ -1,91 +1,86 @@
 let daftarPendaftar = JSON.parse(localStorage.getItem("daftarPendaftar")) || [];
 
-let form = document.getElementById("formPeserta");
-let inputNama = document.getElementById("nama");
-let inputEmail = document.getElementById("email");
-let inputNoHp = document.getElementById("noHp");
-let inputJurusan = document.getElementById("jurusan");
-let inputKegiatan = document.getElementById("kegiatan");
-let btnBatal = document.getElementById("tombolBatal");
-let btnSimpan = document.getElementById("tombolSimpan");
-let judulForm = document.getElementById("judulForm");
-let pesanForm = document.getElementById("pesanForm");
-
-let tbody = document.getElementById("dataPeserta");
-
-
 function simpanData() {
   localStorage.setItem("daftarPendaftar", JSON.stringify(daftarPendaftar));
 }
+let formTambah = document.getElementById("formPeserta");
 
-if (form) {
+if (formTambah) {
+  let inputNama = document.getElementById("nama");
+  let inputEmail = document.getElementById("email");
+  let inputNoHp = document.getElementById("noHp");
+  let inputJurusan = document.getElementById("jurusan");
+  let inputKegiatan = document.getElementById("kegiatan");
+  let pesanForm = document.getElementById("pesanForm");
+
+  formTambah.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let pesertaBaru = {
+      id: Date.now(),
+      nama: inputNama.value,
+      email: inputEmail.value,
+      noHp: inputNoHp.value,
+      jurusan: inputJurusan.value,
+      kegiatan: inputKegiatan.value
+    };
+
+    daftarPendaftar.push(pesertaBaru);
+    simpanData();
+    formTambah.reset();
+
+    if (pesanForm) pesanForm.textContent = "Pendaftaran berhasil ditambahkan.";
+  });
+}
+let formEdit = document.getElementById("formEdit");
+
+if (formEdit) {
+  let inputNama = document.getElementById("nama");
+  let inputEmail = document.getElementById("email");
+  let inputNoHp = document.getElementById("noHp");
+  let inputJurusan = document.getElementById("jurusan");
+  let inputKegiatan = document.getElementById("kegiatan");
+
   let editingId = localStorage.getItem("editingId");
-
-  if (editingId) {
-    for (let i = 0; i < daftarPendaftar.length; i++) {
-      if (String(daftarPendaftar[i].id) === String(editingId)) {
-        let p = daftarPendaftar[i];
-        inputNama.value = p.nama;
-        inputEmail.value = p.email;
-        inputNoHp.value = p.noHp;
-        inputJurusan.value = p.jurusan;
-        inputKegiatan.value = p.kegiatan;
-
-        if (judulForm) judulForm.textContent = "Edit Data Peserta";
-        btnSimpan.textContent = "Simpan Perubahan";
-      }
+  for (let i = 0; i < daftarPendaftar.length; i++) {
+    if (String(daftarPendaftar[i].id) === String(editingId)) {
+      let p = daftarPendaftar[i];
+      inputNama.value = p.nama;
+      inputEmail.value = p.email;
+      inputNoHp.value = p.noHp;
+      inputJurusan.value = p.jurusan;
+      inputKegiatan.value = p.kegiatan;
     }
   }
 
-  form.addEventListener("submit", function (e) {
+  formEdit.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    let editingId = localStorage.getItem("editingId");
-
-    if (!editingId) {
-      let pesertaBaru = {
-        id: Date.now(),
-        nama: inputNama.value,
-        email: inputEmail.value,
-        noHp: inputNoHp.value,
-        jurusan: inputJurusan.value,
-        kegiatan: inputKegiatan.value
-      };
-      daftarPendaftar.push(pesertaBaru);
-      pesanForm.textContent = "Pendaftaran berhasil ditambahkan.";
-    } else {
-      for (let i = 0; i < daftarPendaftar.length; i++) {
-        if (String(daftarPendaftar[i].id) === String(editingId)) {
-          daftarPendaftar[i].nama = inputNama.value;
-          daftarPendaftar[i].email = inputEmail.value;
-          daftarPendaftar[i].noHp = inputNoHp.value;
-          daftarPendaftar[i].jurusan = inputJurusan.value;
-          daftarPendaftar[i].kegiatan = inputKegiatan.value;
-        }
+    for (let i = 0; i < daftarPendaftar.length; i++) {
+      if (String(daftarPendaftar[i].id) === String(editingId)) {
+        daftarPendaftar[i].nama = inputNama.value;
+        daftarPendaftar[i].email = inputEmail.value;
+        daftarPendaftar[i].noHp = inputNoHp.value;
+        daftarPendaftar[i].jurusan = inputJurusan.value;
+        daftarPendaftar[i].kegiatan = inputKegiatan.value;
       }
-      pesanForm.textContent = "Data peserta berhasil diperbarui.";
     }
 
     simpanData();
     localStorage.removeItem("editingId");
-    form.reset();
-    if (judulForm) judulForm.textContent = "Form Pendaftaran Event";
-    btnSimpan.textContent = "Daftar";
-  });
- btnBatal.addEventListener("click", function () {
-    localStorage.removeItem("editingId");
-    form.reset();
-    if (judulForm) judulForm.textContent = "Form Pendaftaran Event";
-    btnSimpan.textContent = "Daftar";
-    pesanForm.textContent = "";
+    window.location.href = "dashboard.html";
   });
 }
+let tbody = document.getElementById("dataPeserta");
+
 if (tbody) {
   renderTabel();
 }
+
 function renderTabel() {
   tbody.innerHTML = "";
-for (let i = 0; i < daftarPendaftar.length; i++) {
+
+  for (let i = 0; i < daftarPendaftar.length; i++) {
     let p = daftarPendaftar[i];
 
     let baris = "<tr>";
@@ -106,19 +101,22 @@ for (let i = 0; i < daftarPendaftar.length; i++) {
 }
 function editData(id) {
   localStorage.setItem("editingId", id);
-  window.location.href = "index.html";
+  window.location.href = "edit.html";
 }
 function hapusData(id) {
   let peserta = null;
   let index = -1;
-for (let i = 0; i < daftarPendaftar.length; i++) {
+
+  for (let i = 0; i < daftarPendaftar.length; i++) {
     if (daftarPendaftar[i].id === id) {
       peserta = daftarPendaftar[i];
       index = i;
     }
   }
-if (!peserta) return;
-let konfirmasi = confirm("Yakin hapus data " + peserta.nama + "?");
+
+  if (!peserta) return;
+
+  let konfirmasi = confirm("Yakin hapus data " + peserta.nama + "?");
   if (!konfirmasi) return;
 
   daftarPendaftar.splice(index, 1);
