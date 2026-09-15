@@ -13,15 +13,11 @@ let pesanForm = document.getElementById("pesanForm");
 
 let tbody = document.getElementById("dataPeserta");
 
-
 function simpanData() {
   localStorage.setItem("daftarPendaftar", JSON.stringify(daftarPendaftar));
 }
-
-
 if (form) {
-
-  let editingId = localStorage.getItem("editingId");
+let editingId = localStorage.getItem("editingId");
 
   if (editingId) {
     for (let i = 0; i < daftarPendaftar.length; i++) {
@@ -38,11 +34,9 @@ if (form) {
       }
     }
   }
-
-  form.addEventListener("submit", function (e) {
+form.addEventListener("submit", function (e) {
     e.preventDefault();
-
-    let editingId = localStorage.getItem("editingId");
+let editingId = localStorage.getItem("editingId");
 
     if (!editingId) {
       let pesertaBaru = {
@@ -55,7 +49,7 @@ if (form) {
       };
       daftarPendaftar.push(pesertaBaru);
       pesanForm.textContent = "Pendaftaran berhasil ditambahkan.";
-    } else {
+} else {
       for (let i = 0; i < daftarPendaftar.length; i++) {
         if (String(daftarPendaftar[i].id) === String(editingId)) {
           daftarPendaftar[i].nama = inputNama.value;
@@ -65,17 +59,16 @@ if (form) {
           daftarPendaftar[i].status = inputStatus.value;
         }
       }
-      pesanForm.textContent = "Data peserta berhasil diperbarui.";
+pesanForm.textContent = "Data peserta berhasil diperbarui.";
     }
-
-    simpanData();
+simpanData();
     localStorage.removeItem("editingId");
     form.reset();
     if (judulForm) judulForm.textContent = "Form Pendaftaran Event";
     btnSimpan.textContent = "Daftar";
   });
 
-  btnBatal.addEventListener("click", function () {
+btnBatal.addEventListener("click", function () {
     localStorage.removeItem("editingId");
     form.reset();
     if (judulForm) judulForm.textContent = "Form Pendaftaran Event";
@@ -83,11 +76,9 @@ if (form) {
     pesanForm.textContent = "";
   });
 }
-
 if (tbody) {
   renderTabel();
 }
-
 function renderTabel() {
   tbody.innerHTML = "";
 
@@ -117,14 +108,12 @@ function editData(id) {
 function hapusData(id) {
   let peserta = null;
   let index = -1;
-
-  for (let i = 0; i < daftarPendaftar.length; i++) {
+for (let i = 0; i < daftarPendaftar.length; i++) {
     if (daftarPendaftar[i].id === id) {
       peserta = daftarPendaftar[i];
       index = i;
     }
   }
-
   if (!peserta) return;
 
   let konfirmasi = confirm("Yakin hapus data " + peserta.nama + "?");
