@@ -1,0 +1,204 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #050b1c, #0b1d3a, #123e68);
+    background-image:
+        linear-gradient(rgba(3, 10, 28, 0.75), rgba(3, 10, 28, 0.85)),
+        url("background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 0 0 12px #168cff;
+    margin-bottom: 25px;
+}
+
+form {
+    background: rgba(8, 25, 51, 0.88);
+    padding: 28px;
+    max-width: 400px;
+    margin: auto;
+    border-radius: 16px;
+    border: 1px solid rgba(73, 174, 255, 0.4);
+    box-shadow:
+        0 8px 35px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(0, 132, 255, 0.12);
+    backdrop-filter: blur(10px);
+}
+
+label {
+    display: block;
+    color: #c3ddf7;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 5px;
+}
+
+input, select, button {
+    padding: 11px 13px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border: 1px solid #315579;
+    font-family: inherit;
+    transition: 0.3s ease;
+}
+
+input, select {
+    width: 90%;
+    background: #102b4a;
+    color: white;
+}
+
+input::placeholder {
+    color: #8ca6bd;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #22aaff;
+    box-shadow: 0 0 12px rgba(34, 170, 255, 0.35);
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+.tombol {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.tombol button {
+    background: #16466d;
+    color: white;
+}
+
+.tombol button:hover {
+    background: #216b9e;
+    box-shadow: 0 0 12px rgba(33, 150, 243, 0.4);
+}
+
+#tombolSimpan {
+    background: linear-gradient(135deg, #087ee8, #00bfff);
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0, 174, 255, 0.25);
+}
+
+#tombolSimpan:hover {
+    background: linear-gradient(135deg, #0664bd, #008dcc);
+}
+
+.slebew button {
+    background: #12385b;
+    color: #eaf6ff;
+}
+
+.slebew button:hover {
+    background: #1b5685;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(8, 25, 51, 0.95);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.35);
+}
+
+th, td {
+    padding: 13px;
+    border: 1px solid #234664;
+    text-align: center;
+}
+
+th {
+    background: linear-gradient(135deg, #07549a, #087fc2);
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(19, 54, 85, 0.7);
+}
+
+tbody tr:hover {
+    background-color: rgba(21, 105, 164, 0.6);
+    transition: 0.2s;
+}
+
+.edit {
+    background: #e69519;
+    color: white;
+}
+
+.edit:hover {
+    background: #ffb52e;
+    box-shadow: 0 0 10px rgba(255, 174, 0, 0.35);
+}
+
+.hapus {
+    background: #d9364f;
+    color: white;
+}
+
+.hapus:hover {
+    background: #ff405b;
+    box-shadow: 0 0 10px rgba(255, 50, 80, 0.35);
+}
+
+#pesanForm {
+    margin-top: 15px;
+    padding: 13px 15px;
+    border-radius: 8px;
+    background: rgba(13, 68, 108, 0.7);
+    color: #bce9ff;
+    border-left: 4px solid #12aaff;
+    font-size: 14px;
+    box-shadow: 0 0 12px rgba(0, 145, 255, 0.1);
+}
+
+#pesanForm:empty {
+    display: none;
+}
+@media (max-width: 600px) {
+    body {
+        padding: 12px;
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    input, select {
+        width: 100%;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}
